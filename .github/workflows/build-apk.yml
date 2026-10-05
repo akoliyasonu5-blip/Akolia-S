@@ -2,10 +2,14 @@ name: Build GroundCheck APK
 on:
   push:
     branches: [groundcheck-apk-20261005]
+    paths-ignore:
+      - 'artifacts/**'
   workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -20,3 +24,12 @@ jobs:
         with:
           name: GroundCheck-APK
           path: app/build/outputs/apk/debug/app-debug.apk
+      - name: Publish APK on branch
+        run: |
+          mkdir -p artifacts
+          cp app/build/outputs/apk/debug/app-debug.apk artifacts/GroundCheck.apk
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add artifacts/GroundCheck.apk
+          git commit -m "Add GroundCheck APK [skip ci]" || exit 0
+          git push
