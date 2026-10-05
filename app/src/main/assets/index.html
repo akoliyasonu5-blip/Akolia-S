@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GroundCheck MVP</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-wrap">
+        <div class="logo">GC</div>
+        <div>
+          <h1>GroundCheck</h1>
+          <p>Real-world checks, done by nearby people.</p>
+        </div>
+      </div>
+      <button id="modeBtn" class="ghost">Switch to Earner</button>
+    </header>
+
+    <main>
+      <section id="requesterView" class="view active">
+        <div class="hero card">
+          <div>
+            <span class="pill">Requester Mode</span>
+            <h2>Need something checked right now?</h2>
+            <p>Post a task. A nearby verified person can visit, capture proof and report back.</p>
+          </div>
+          <div class="statbox">
+            <strong id="openTaskCount">3</strong>
+            <span>Open demo tasks</span>
+          </div>
+        </div>
+
+        <section class="grid two">
+          <div class="card">
+            <h3>Create a GroundCheck</h3>
+            <form id="taskForm">
+              <label>What should be checked?
+                <input id="taskTitle" required placeholder="e.g. Check if this shop has iPhone 17 in stock" />
+              </label>
+              <label>Location
+                <input id="taskLocation" required placeholder="e.g. Karol Bagh, Delhi" />
+              </label>
+              <label>Proof needed
+                <select id="taskProof">
+                  <option>Photo + answer</option>
+                  <option>Video + answer</option>
+                  <option>Photo + price proof</option>
+                  <option>Photo + GPS confirmation</option>
+                </select>
+              </label>
+              <div class="grid two compact">
+                <label>Reward (₹)
+                  <input id="taskReward" type="number" min="20" value="50" required />
+                </label>
+                <label>Time limit
+                  <select id="taskTime">
+                    <option>30 min</option>
+                    <option>1 hour</option>
+                    <option>3 hours</option>
+                    <option>Today</option>
+                  </select>
+                </label>
+              </div>
+              <button class="primary" type="submit">Post GroundCheck</button>
+            </form>
+          </div>
+
+          <div class="card">
+            <h3>How it works</h3>
+            <div class="steps">
+              <div><b>1</b><span>You post a task and reward.</span></div>
+              <div><b>2</b><span>A nearby earner accepts it.</span></div>
+              <div><b>3</b><span>They submit live proof from the location.</span></div>
+              <div><b>4</b><span>You approve. Payment is released.</span></div>
+            </div>
+            <div class="fee-box">
+              <span>Example on ₹50 task</span>
+              <strong>₹40 earner • ₹10 GroundCheck</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="section-head">
+            <h3>My GroundChecks</h3>
+            <span class="muted">Demo data</span>
+          </div>
+          <div id="myTasks" class="task-list"></div>
+        </section>
+      </section>
+
+      <section id="earnerView" class="view">
+        <div class="hero card earner-hero">
+          <div>
+            <span class="pill">Earner Mode</span>
+            <h2>Earn by checking nearby places.</h2>
+            <p>Accept local tasks, submit proof, and build your trust score.</p>
+          </div>
+          <div class="wallet-card">
+            <span>Demo wallet</span>
+            <strong id="walletBalance">₹320</strong>
+          </div>
+        </div>
+
+        <section class="grid two">
+          <div class="card">
+            <h3>Nearby Tasks</h3>
+            <div id="nearbyTasks" class="task-list"></div>
+          </div>
+          <div class="card">
+            <h3>Trust & Safety</h3>
+            <div class="trust-score">
+              <div class="score">92</div>
+              <div><strong>Trust Score</strong><p>Good standing</p></div>
+            </div>
+            <ul class="checks">
+              <li>✓ Phone verified</li>
+              <li>✓ Selfie verification</li>
+              <li>✓ Location permission enabled</li>
+              <li>○ ID verification pending</li>
+            </ul>
+          </div>
+        </section>
+      </section>
+
+      <section id="adminView" class="view">
+        <div class="card">
+          <div class="section-head">
+            <div>
+              <span class="pill">Admin</span>
+              <h2>GroundCheck Operations</h2>
+            </div>
+            <button id="backFromAdmin" class="ghost">Back</button>
+          </div>
+          <div class="admin-stats">
+            <div><strong id="adminTaskCount">0</strong><span>Total tasks</span></div>
+            <div><strong>₹1,940</strong><span>GMV demo</span></div>
+            <div><strong>14</strong><span>Active earners</span></div>
+            <div><strong>93%</strong><span>Approval rate</span></div>
+          </div>
+          <div id="adminTasks" class="task-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button data-tab="requesterView" class="nav-btn active">Request</button>
+      <button data-tab="earnerView" class="nav-btn">Earn</button>
+      <button id="adminBtn" class="nav-btn">Admin</button>
+    </nav>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
